@@ -16,15 +16,16 @@ class TestSeeder extends Seeder
     public function run(): void
     {
         $user = User::factory()->create([
-            'email' => 'test@example.com',
-            'password' => Hash::make('password')
+            'email' => env('EMAIL'),
+            'password' => Hash::make(env('PASSWORD'))
         ]);
 
         $client = Client::factory()->create([
-            'user_id' => $user->id,
-            'secret' => 'test-client-secret',
+            'id' => env('PASSWORD_CLIENT_ID'),
+            'secret' => env('PASSWORD_CLIENT_SECRET'),
             'password_client' => true,
             'redirect' => 'http://localhost'
         ]);
+
     }
 }

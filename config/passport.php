@@ -72,4 +72,9 @@ return [
         'secret' => env('PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET'),
     ],
 
+    'password' => [
+        'id' => env('PASSWORD_CLIENT_ID', null),
+        'secret' => env('PASSWORD_CLIENT_SECRET', null)
+    ]
+
 ];

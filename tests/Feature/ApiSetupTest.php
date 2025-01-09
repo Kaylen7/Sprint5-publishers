@@ -18,7 +18,7 @@ describe('Api Setup', function(){
     }); 
 
     it('has all user columns', function(){
-        expect(Schema::getColumnListing('users'))->toContainEqual('id', 'name', 'email', 'password', 'is_service');
+        expect(Schema::getColumnListing('users'))->toContainEqual('id', 'name', 'email', 'password');
     });
 
 });

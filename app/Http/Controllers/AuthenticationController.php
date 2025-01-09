@@ -51,8 +51,7 @@ class AuthenticationController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'is_service' => $request->is_service
+                'password' => Hash::make($request->password)
             ]);
 
             DB::commit();

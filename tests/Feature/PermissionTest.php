@@ -1,6 +1,6 @@
 <?php
-use App\Models\Role;
-use App\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 describe('Permissions', function(){
     it('has basic permissions set up', function () {

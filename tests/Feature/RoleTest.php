@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 
 describe('Role Management', function(){
     it('can assign roles to users', function () {

@@ -13,51 +13,11 @@ class UserController extends Controller
 {
     use AuthorizesRequests;
 
-    /**
-     * @OA\Get(
-     *     path="/api/users",
-     *     summary="Get all user details",
-     *     description="Returns list of id-email for users",
-     *     tags={"User"},
-     *     security={{"passport": {}}},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful response"
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unauthorized",
-     *     ),
-     * )
-     */
     public function index(Request $request)
     {
         return UserResource::collection(User::all());
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/users/{id}",
-     *     summary="Get user details",
-     *     description="Returns the details of current user. Only admin can see others.",
-     *     tags={"User"},
-     *     @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="user id",
-     *     required=true
-     *     ),
-     *     security={{"passport": {}}},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful response",
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unauthenticated",
-     *     ),
-     * )
-     */
     public function show(Request $request, string $id)
     {
 
@@ -69,40 +29,6 @@ class UserController extends Controller
         
     }
 
-    /**
-     * @OA\PUT(
-     *     path="/api/users/{id}",
-     *     summary="Update user",
-     *     tags={"User"},
-     *     @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="user id",
-     *     required=true
-     *     ),
-     *     security={{"passport": {}}},
-     *     @OA\RequestBody(
-     *     @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(property="name", type="string"),
-     *              @OA\Property(property="password", type="string"),
-     *              @OA\Property(property="email", type="string"),
-     *      ),
-     * ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK",
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unauthenticated",
-     *     ),
-     *     @OA\Response(
-     *         response=402,
-     *         description="No content",
-     *     ),
-     * )
-     */
     public function update(UpdateUserRequest $request, string $id)
     {
         $target = User::findOrFail($id);
@@ -126,35 +52,6 @@ class UserController extends Controller
         return $target;
     }
 
-    /**
-     * @OA\DELETE(
-     *     path="/api/users/{id}",
-     *     summary="Delete user",
-     *     description="Deletes user. Regular users can only remove themselves. They must provide password.",
-     *     tags={"User"},
-     *     @OA\RequestBody(
-     *     @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(property="password", type="string")
-     *      ),
-     * ),
-     *     @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="user id",
-     *     required=true
-     *     ),
-     *     security={{"passport": {}}},
-     *     @OA\Response(
-     *         response=200,
-     *         description="User removed successfully",
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unauthenticated",
-     *     ),
-     * )
-     */
     public function destroy(Request $request, string $id)
     {
         $target = User::findOrFail($id);

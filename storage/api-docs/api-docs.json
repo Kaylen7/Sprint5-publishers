@@ -20,7 +20,7 @@
                 ],
                 "summary": "Get all user details",
                 "description": "Returns list of id-email for users",
-                "operationId": "c457726701591d1183b53aa71fc13441",
+                "operationId": "9d8770b6586b70acbb42005e1bfa71b6",
                 "responses": {
                     "200": {
                         "description": "Successful response"
@@ -43,7 +43,7 @@
                 ],
                 "summary": "Get user details",
                 "description": "Returns the details of current user. Only admin can see others.",
-                "operationId": "36a33ff774d5cba33c039dec2c3e0287",
+                "operationId": "3a80a93032f1442a468aad1c7c6c5c41",
                 "parameters": [
                     {
                         "name": "id",
@@ -71,7 +71,7 @@
                     "User"
                 ],
                 "summary": "Update user",
-                "operationId": "b9091397c8b25f12c6adb74be6ce3a5a",
+                "operationId": "2d89de69dd4e3121df3a056e555b2c1a",
                 "parameters": [
                     {
                         "name": "id",
@@ -123,7 +123,7 @@
                 ],
                 "summary": "Delete user",
                 "description": "Deletes user. Regular users can only remove themselves. They must provide password.",
-                "operationId": "fa56cffde745d3f152f95cbacd936c0b",
+                "operationId": "d7cb40335e41059c7f93911902392da3",
                 "parameters": [
                     {
                         "name": "id",

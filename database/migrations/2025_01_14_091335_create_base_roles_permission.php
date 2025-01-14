@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration

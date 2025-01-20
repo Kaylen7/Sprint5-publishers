@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectController;
 
 
 Route::middleware('auth:api')->group(function () {
     Route::resource('users', UserController::class)->except(['create', 'store', 'edit']);
-
+    Route::resource('projects', ProjectController::class)->except(['create', 'edit']);
 });
 
 Route::post('/register', [AuthenticationController::class, 'register']);

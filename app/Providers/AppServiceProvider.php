@@ -12,8 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        Passport::enablePasswordGrant();
-        Passport::ignoreRoutes();
+        //
     }
 
     /**
@@ -21,11 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
-        $this->loadRoutesFrom(base_path('routes/passport.php'));
-        Passport::hashClientSecrets();
-        Passport::tokensExpireIn(now()->addDays(5));
-        Passport::refreshTokensExpireIn(now()->addDays(15));
-        Passport::personalAccessTokensExpireIn(now()->addDays(20));
+        //
     }
 }

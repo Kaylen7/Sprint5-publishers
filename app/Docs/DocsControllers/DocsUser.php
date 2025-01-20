@@ -25,14 +25,14 @@ class DocsUser
 
     /**
      * @OA\Get(
-     *     path="/users/{id}",
+     *     path="/users/{uuid}",
      *     summary="Get user details",
      *     description="Returns the details of current user. Only admin can see others.",
      *     tags={"User"},
      *     @OA\Parameter(
-     *     name="id",
+     *     name="uuid",
      *     in="path",
-     *     description="user id",
+     *     description="user uuid",
      *     required=true
      *     ),
      *     security={{"passport": {}}},
@@ -50,13 +50,13 @@ class DocsUser
 
     /**
      * @OA\PUT(
-     *     path="/users/{id}",
+     *     path="/users/{uuid}",
      *     summary="Update user",
      *     tags={"User"},
      *     @OA\Parameter(
-     *     name="id",
+     *     name="uuid",
      *     in="path",
-     *     description="user id",
+     *     description="user uuid",
      *     required=true
      *     ),
      *     security={{"passport": {}}},
@@ -86,7 +86,7 @@ class DocsUser
 
     /**
      * @OA\DELETE(
-     *     path="/users/{id}",
+     *     path="/users/{uuid}",
      *     summary="Delete user",
      *     description="Deletes user. Regular users can only remove themselves. Admin can remove everyone except admins. Regular users must provide their password.",
      *     tags={"User"},
@@ -97,9 +97,9 @@ class DocsUser
      *      ),
      * ),
      *     @OA\Parameter(
-     *     name="id",
+     *     name="uuid",
      *     in="path",
-     *     description="user id",
+     *     description="user uuid",
      *     required=true
      *     ),
      *     security={{"passport": {}}},

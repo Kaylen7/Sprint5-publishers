@@ -18,10 +18,10 @@ class UserController extends Controller
         return UserResource::collection(User::all());
     }
 
-    public function show(Request $request, string $id)
+    public function show(Request $request, string $uuid)
     {
 
-        $target = User::findOrFail($id);
+        $target = User::where('uuid', $uuid)->first();
         
         $this->authorize('view', $target);
 
@@ -29,9 +29,9 @@ class UserController extends Controller
         
     }
 
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, string $uuid)
     {
-        $target = User::findOrFail($id);
+        $target = User::where('uuid', $uuid)->first();
 
         $this->authorize('update', $target);
         
@@ -52,9 +52,9 @@ class UserController extends Controller
         return $target;
     }
 
-    public function destroy(Request $request, string $id)
+    public function destroy(Request $request, string $uuid)
     {
-        $target = User::findOrFail($id);
+        $target = User::where('uuid', $uuid)->first();
 
         $this->authorize('delete', $target);
         if(!$request->user()->hasRole('admin') && !Hash::check($request->password, $target->password)){

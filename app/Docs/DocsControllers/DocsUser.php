@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Docs\Controllers;
+namespace App\Docs\DocsControllers;
 
 class DocsUser
 {

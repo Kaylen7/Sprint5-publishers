@@ -9,18 +9,36 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000"
+            "url": "http://localhost:8000/api"
         }
     ],
     "paths": {
-        "/api/users": {
+        "/projects": {
             "get": {
                 "tags": [
-                    "User"
+                    "Project"
                 ],
-                "summary": "Get all user details",
-                "description": "Returns list of id-email for users",
-                "operationId": "9d8770b6586b70acbb42005e1bfa71b6",
+                "summary": "Get all projects",
+                "description": "Returns list of projects with status done",
+                "operationId": "899f99909fd26aa1274407882d3dfe61",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "project status. Accepts: all, pending, ongoing, done.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "all",
+                            "enum": [
+                                "all",
+                                "pending",
+                                "ongoing",
+                                "done"
+                            ]
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful response"
@@ -36,19 +54,157 @@
                 ]
             }
         },
-        "/api/users/{id}": {
+        "/projects/{uuid}": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Get project details",
+                "description": "Returns the details of specified project.",
+                "operationId": "9f4ddd519edddd89690f3c2daebe7c2a",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "project uuid",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Update project",
+                "operationId": "d842034af65a9b62289f38cd820ade5b",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "project uuid",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "num_chars": {
+                                        "type": "integer"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "402": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Delete project",
+                "description": "Deletes project. Regular users can only remove their projects. Admin can remove any project.",
+                "operationId": "9ef72d53f83131b69c9f27c0ac5ffa3a",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "project uuid",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Project removed successfully"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all user details",
+                "description": "Returns list of id-email for users",
+                "operationId": "60f1f736c4b54066ce3203ef9fc88458",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/users/{uuid}": {
             "get": {
                 "tags": [
                     "User"
                 ],
                 "summary": "Get user details",
                 "description": "Returns the details of current user. Only admin can see others.",
-                "operationId": "3a80a93032f1442a468aad1c7c6c5c41",
+                "operationId": "1b7e009e5da56bbc97f18261ed447979",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "uuid",
                         "in": "path",
-                        "description": "user id",
+                        "description": "user uuid",
                         "required": true
                     }
                 ],
@@ -71,12 +227,12 @@
                     "User"
                 ],
                 "summary": "Update user",
-                "operationId": "2d89de69dd4e3121df3a056e555b2c1a",
+                "operationId": "3a22dd8b18cfccb6316f5bb43561f3ff",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "uuid",
                         "in": "path",
-                        "description": "user id",
+                        "description": "user uuid",
                         "required": true
                     }
                 ],
@@ -122,13 +278,13 @@
                     "User"
                 ],
                 "summary": "Delete user",
-                "description": "Deletes user. Regular users can only remove themselves. They must provide password.",
-                "operationId": "d7cb40335e41059c7f93911902392da3",
+                "description": "Deletes user. Regular users can only remove themselves. Admin can remove everyone except admins. Regular users must provide their password.",
+                "operationId": "6e3876ef3f76c40362272b1d95088917",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "uuid",
                         "in": "path",
-                        "description": "user id",
+                        "description": "user uuid",
                         "required": true
                     }
                 ],
@@ -138,7 +294,8 @@
                             "schema": {
                                 "properties": {
                                     "password": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "password"
                                     }
                                 },
                                 "type": "object"
@@ -163,6 +320,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Project",
+            "description": "Project"
+        },
         {
             "name": "User",
             "description": "User"

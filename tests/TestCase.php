@@ -23,4 +23,9 @@ abstract class TestCase extends BaseTestCase
         'created_at',
         'updated_at'
     ];
+
+    protected $regularUserResource = [
+        'id',
+        'email'
+    ];
 }

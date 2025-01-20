@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
 use Laravel\Passport\TokenRepository;
 use App\Http\Requests\AuthenticationRequest;
 use League\OAuth2\Server\AuthorizationServer;
@@ -44,9 +43,9 @@ class AuthenticationController extends Controller
     }
 
     public function register(AuthenticationRequest $request){
-
+        
         DB::beginTransaction();
-
+        
         try {
             $user = User::create([
                 'name' => $request->name,

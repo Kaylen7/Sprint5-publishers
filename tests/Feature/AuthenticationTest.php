@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Http;
 
 beforeEach(function(){
     $this->seed(TestSeeder::class);
-    Config::set('passport.password.id', '1');
-    Config::set('passport.password.secret', 'test-password-client');
 });
 describe('Authentication', function(){
 

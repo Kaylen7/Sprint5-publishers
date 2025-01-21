@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -24,9 +25,26 @@ abstract class TestCase extends BaseTestCase
         'updated_at'
     ];
 
+    protected $showUserResource = [
+        'uuid',
+        'name',
+        'email',
+        'projects'
+    ];
+
     protected $regularUserResource = [
         'uuid',
-        'email'
+        'email',
+        'project_count'
+    ];
+
+    protected $adminUserResource = [
+        'uuid',
+        'email',
+        'project_count',
+        'name',
+        'created_at',
+        'updated_at'
     ];
 
     protected $projectResource = [
@@ -46,4 +64,14 @@ abstract class TestCase extends BaseTestCase
         'created_at',
         'updated_at'
     ];
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Enable foreign key constraints for SQLite
+        if (DB::connection()->getDriverName() === 'sqlite_testing') {
+            DB::statement('PRAGMA foreign_keys = ON');
+        }
+    }
 }

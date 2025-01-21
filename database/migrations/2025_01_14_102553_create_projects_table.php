@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('num_chars')->unsigned();
             $table->float('num_pages')->unsigned();
-            $table->foreignId('owner_id');
+            $table->foreignId('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status', ['pending', 'ongoing', 'done'])->default('pending');
             $table->decimal('total_price')->unsigned()->nullable();
             $table->date('start_date');

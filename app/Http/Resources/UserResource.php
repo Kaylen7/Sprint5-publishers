@@ -16,7 +16,8 @@ class UserResource extends JsonResource
     {
         $data = [
             'uuid' => $this->uuid,
-            'email' => $this->email
+            'email' => $this->email,
+            'project_count' => $this->getProjectCount()
         ];
 
         if($request->user()->hasRole('admin')){

@@ -32,7 +32,7 @@ describe('User Resource', function(){
 
             $data = $response->json()['data'];
             expect(count($data))->toBe(2);
-            expect(array_keys($data[0]))->toBe($this->userStructure);
+            expect(array_keys($data[0]))->toBe($this->adminUserResource);
         });
 
         test('non-admins can only view limited user data', function(){
@@ -53,7 +53,7 @@ describe('User Resource', function(){
 
             $response = $this->actingAs($this->regularUser)
             ->getJson('api/users/' . $this->regularUser->uuid)
-            ->assertJsonStructure($this->userStructure)
+            ->assertJsonStructure(["data" => $this->showUserResource])
             ->assertStatus(200);
         });
 

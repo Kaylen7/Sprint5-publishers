@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,5 +58,20 @@ class User extends Authenticatable
                 $model->uuid = Str::uuid()->toString();
             }
         });
+    }
+
+    public function getProjectCount(): int{
+        return Cache::remember("user_{$this->id}_project_count", 3600, function(){
+            return $this->hasProjects()->count();
+        });
+    }
+
+    public function updateProjectCount(): void{
+        Cache::forget("user_{$this->id}_project_count");
+        Cache::put("user_{$this->id}_project_count", $this->hasProjects()->count());
+    }
+
+    public function hasProjects(){
+        return $this->hasMany(Project::class, 'owner_id');
     }
 }

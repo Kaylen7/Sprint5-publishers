@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\ProjectResource;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\ShowUserResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
@@ -21,12 +23,20 @@ class UserController extends Controller
     public function show(Request $request, string $uuid)
     {
 
-        $target = User::where('uuid', $uuid)->first();
+        $target = User::with('hasProjects')->where('uuid', $uuid)->firstOrFail();
         
         $this->authorize('view', $target);
 
-        return $target;
+        return new ShowUserResource($target);
         
+    }
+
+    public function showProjects(Request $request, string $uuid){
+        $target = User::where('uuid', $uuid)->first();
+        $this->authorize('view', $target);
+
+        $projects = $target->hasProjects()->get();
+        return ProjectResource::collection($projects);
     }
 
     public function update(UpdateUserRequest $request, string $uuid)

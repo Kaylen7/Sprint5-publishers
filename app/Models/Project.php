@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,11 +38,18 @@ class Project extends Model
             }
 
             if(empty($model->num_pages)){
-                $model->num_pages = max(1, $model->num_chars / self::CHARS_PAG);
+                $model->num_pages = floor($model->num_chars / self::CHARS_PAG);
             }
 
             if(empty($model->projected_end_date)){
                 $model->projected_end_date = $model->start_date;
+            }
+        });
+
+        static::created(function($model){
+            $owner = $model->owner;
+            if($owner){
+                $owner->updateProjectCount();
             }
         });
 
@@ -50,6 +58,15 @@ class Project extends Model
                 throw new \Exception("Can't open a portal to the past yet...");
             }
         });
+
+        static::updating(function($model){
+            if($model->isDirty('num_chars')){
+                $model->num_pages = floor($model->num_chars / self::CHARS_PAG);
+            }
+        });
     }
-    
+
+    public function owner(){
+        return $this->belongsTo(User::class, 'owner_id');
+    }
 }

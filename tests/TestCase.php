@@ -17,15 +17,33 @@ abstract class TestCase extends BaseTestCase
             'token_type'
         ];
     protected $userStructure = [
-        'id',
-        'name',
+        'uuid',
         'email',
+        'name',
         'created_at',
         'updated_at'
     ];
 
     protected $regularUserResource = [
-        'id',
+        'uuid',
         'email'
+    ];
+
+    protected $projectResource = [
+        'uuid',
+        'name',
+        'description',
+        'num_chars',
+        'num_pages',
+        'status',
+        'total_price',
+        'start_date',
+        'projected_end_date'
+    ];
+
+    protected $projectResourceExpanded = [
+        'owner_id',
+        'created_at',
+        'updated_at'
     ];
 }

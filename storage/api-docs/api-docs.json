@@ -317,6 +317,37 @@
                     }
                 ]
             }
+        },
+        "/users/{uuid}/projects": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all projects from user",
+                "description": "Returns all project details from current user. Only admin can see other's projects.",
+                "operationId": "b299db7ace7010e4351134179b68486d",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "user uuid",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
         }
     },
     "tags": [

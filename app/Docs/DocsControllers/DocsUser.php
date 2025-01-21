@@ -49,6 +49,31 @@ class DocsUser
     public function show(){ }
 
     /**
+     * @OA\Get(
+     *     path="/users/{uuid}/projects",
+     *     summary="Get all projects from user",
+     *     description="Returns all project details from current user. Only admin can see other's projects.",
+     *     tags={"User"},
+     *     @OA\Parameter(
+     *     name="uuid",
+     *     in="path",
+     *     description="user uuid",
+     *     required=true
+     *     ),
+     *     security={{"passport": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     * )
+     */
+    public function showProjects(){ }
+
+    /**
      * @OA\PUT(
      *     path="/users/{uuid}",
      *     summary="Update user",

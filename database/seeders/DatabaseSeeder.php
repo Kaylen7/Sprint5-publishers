@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Service;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -24,5 +25,9 @@ class DatabaseSeeder extends Seeder
 
         Project::factory()->create();
         Project::factory(2)->done()->create();
+
+        Service::factory()->create();
+        Service::factory()->proofreading()->create();
+        Service::factory()->translating()->create();
     }
 }

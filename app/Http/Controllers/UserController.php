@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        return UserResource::collection(User::all());
+        return response(UserResource::collection(User::all()), 200);
     }
 
     public function show(Request $request, string $uuid)
@@ -27,7 +27,7 @@ class UserController extends Controller
         
         $this->authorize('view', $target);
 
-        return new ShowUserResource($target);
+        return response(new ShowUserResource($target), 200);
         
     }
 
@@ -36,7 +36,7 @@ class UserController extends Controller
         $this->authorize('view', $target);
 
         $projects = $target->hasProjects()->get();
-        return ProjectResource::collection($projects);
+        return response(ProjectResource::collection($projects), 200);
     }
 
     public function update(UpdateUserRequest $request, string $uuid)
@@ -59,7 +59,7 @@ class UserController extends Controller
 
         $target->update($data);
 
-        return $target;
+        return response(new showUserResource($target), 200);
     }
 
     public function destroy(Request $request, string $uuid)

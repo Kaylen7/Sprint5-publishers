@@ -44,21 +44,20 @@ describe('Project Management', function(){
                 ->get('/api/projects?status=done')
                 ->assertStatus(200);
 
-                $data = $response->json()['data'];
-                expect(count($data))->toBe(3);
-                expect(array_keys($data[1]))->toBe($this->projectResource);
+                expect(count($response->json()))->toBe(3);
+                expect(array_keys($response->json()[0]))->toBe($this->projectResource);
             });
         });
 
         describe('admin authorization', function(){
-
             it('/projects shows expanded info', function(){
                 $response = $this->actingAs($this->adminUser)
                 ->get('/api/projects')
                 ->assertStatus(200);
                 
-                $data = $response->json()['data'];
-                expect($data[0])->toHaveKeys($this->projectResourceExpanded);
+                $data = $response->json()[0];
+                expect($data)->toHaveKeys($this->projectResourceExpanded);
+                expect($data)->not->toHaveKeys(['id']);
             });
         });  
     });
@@ -66,7 +65,7 @@ describe('Project Management', function(){
     /**
      * GET api/projects/{uuid}
      */
-    describe('/projects/{id}', function(){
+    describe('/projects/{uuid}', function(){
 
         beforeEach(function(){
             $this->ownedProject = Project::factory()->create([
@@ -81,6 +80,9 @@ describe('Project Management', function(){
                 $response = $this->actingAs($this->regularUser)
                 ->get('/api/projects/' . $this->ownedProject->uuid)
                 ->assertStatus(200);
+
+                expect($response->json())->toHaveKeys($this->projectResource);
+                expect($response->json())->not->toHaveKeys(['id', 'created_at', 'updated_at']);
             });
             it('Shows other projects', function(){
                 $response = $this->actingAs($this->regularUser)
@@ -228,6 +230,17 @@ describe('Project Management', function(){
             
             $project = Project::find($project->id);
             expect($project->owner_id)->toBe($this->regularUser->id);
+        });
+
+        it('does not show id on response', function(){
+            $project = Project::factory()->create(['owner_id' => $this->regularUser->id]);
+            $response = $this->actingAs($this->regularUser)
+            ->putJson('api/projects/' . $project->uuid, [
+                'name' => 'Testing new name'
+            ])
+            ->assertStatus(200);
+            expect($response->json())->toHaveKeys($this->projectResource);
+            expect($response->json())->not->toHaveKeys(['id']);
         });
 
     });

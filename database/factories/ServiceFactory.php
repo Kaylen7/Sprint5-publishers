@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Service;
+use App\Helpers\ServiceValidationHelper;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -29,7 +30,7 @@ class ServiceFactory extends Factory
 
     public function configure(){
         return $this->afterMaking(function (Service $service){
-            if($service->type === 'translating'){
+            if($service->type === 'translating' && ServiceValidationHelper::isOneLevelArray($service->languages)){
                 $service->languages = $this->generateLanguages('translating');
             }
         });
@@ -37,7 +38,7 @@ class ServiceFactory extends Factory
 
     private function generateLanguages($type){
         if($type === 'proofreading'){
-            return json_encode(fake()->randomElements(['es-ES', 'ca-ES', 'en-UK', 'en-US', 'de-DE'], fake()->numberBetween(1,5)));
+            return fake()->randomElements(['es-ES', 'ca-ES', 'en-UK', 'en-US', 'de-DE'], fake()->numberBetween(1,5));
         }
 
         if($type === "translating"){
@@ -49,7 +50,7 @@ class ServiceFactory extends Factory
                     'bidirectional' => fake()->boolean()
                 ];
             }
-            return json_encode($pairs);
+            return $pairs;
         }
         return [];
     }

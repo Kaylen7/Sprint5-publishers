@@ -32,7 +32,7 @@ describe('User-Project relationships', function(){
         ->getJson('api/users')
         ->assertStatus(200);
 
-        expect($response->json()['data'][0])->toHaveKey('project_count');
+        expect($response->json()[0])->toHaveKey('project_count');
     });
 
     test('/users/{uuid} shows project details', function(){
@@ -40,7 +40,7 @@ describe('User-Project relationships', function(){
         ->getJson('api/users/' . $this->regularUser->uuid)
         ->assertStatus(200);
 
-        expect($response->json()['data'])->toHaveKey('projects');
+        expect($response->json())->toHaveKey('projects');
     });
 
     test('user project count updates after new project', function(){

@@ -21,10 +21,10 @@ class ProjectController extends Controller
             return response(['error' => 'Status not found. Try with pending, ongoing, done or all; or remove parameter from query.'], 404);
         }
         if(!$request->status || $request->status === 'all'){
-            return ProjectResource::collection(Project::all());
+            return response(ProjectResource::collection(Project::all()), 200);
         }
 
-        return ProjectResource::collection(Project::all()->filter(fn($e) => $e['status'] === $request->status));
+        return response(ProjectResource::collection(Project::all()->filter(fn($e) => $e['status'] === $request->status)), 200);
     }
 
     /**
@@ -44,18 +44,7 @@ class ProjectController extends Controller
             return response(['message' => 'Project creation failed'], 500);
         }
 
-        return response([
-            'uuid' => $project->uuid,
-            'name' => $project->name,
-            'description' => $project->description,
-            'num_chars' => $project->num_chars,
-            'num_pages' => $project->num_pages,
-            'status' => $project->status,
-            'owner_id' => $project->owner_id,
-            'total_price' => $project->total_price,
-            'start_date' => $project->start_date,
-            'projected_end_date' => $project->projected_end_date
-        ], 201);
+        return response(new ProjectResource($project), 201);
     }
 
     /**
@@ -68,7 +57,7 @@ class ProjectController extends Controller
         if(!$target){
             return response(['message' => 'Project not found'], 404);
         }
-        return $target;
+        return response(new ProjectResource($target), 200);
     }
 
     /**
@@ -89,7 +78,7 @@ class ProjectController extends Controller
 
         $target->update($data);
 
-        return $target;
+        return response(new ProjectResource($target), 200);
     }
 
     /**

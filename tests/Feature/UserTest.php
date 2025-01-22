@@ -30,7 +30,7 @@ describe('User Resource', function(){
             ->getJson('api/users')
             ->assertStatus(200);
 
-            $data = $response->json()['data'];
+            $data = $response->json();
             expect(count($data))->toBe(2);
             expect(array_keys($data[0]))->toBe($this->adminUserResource);
         });
@@ -41,19 +41,19 @@ describe('User Resource', function(){
             ->getJson('api/users')
             ->assertStatus(200);
 
-            $data = $response->json()['data'];
+            $data = $response->json();
             expect(count($data))->toBe(2);
             expect(array_keys($data[0]))->toBe($this->regularUserResource);
         });
 
     });
 
-    describe('/user/{id} show', function(){
+    describe('/user/{uuid} show', function(){
         test('non-auth can see their details', function(){
 
             $response = $this->actingAs($this->regularUser)
             ->getJson('api/users/' . $this->regularUser->uuid)
-            ->assertJsonStructure(["data" => $this->showUserResource])
+            ->assertJsonStructure($this->showUserResource)
             ->assertStatus(200);
         });
 
@@ -112,6 +112,17 @@ describe('User Resource', function(){
                 'email' => env('ADMIN_EMAIL')
             ])
             ->assertStatus(422);
+        });
+
+        it('does not display id on response', function(){
+            $response = $this->actingAs($this->regularUser)
+            ->putJson('api/users/' . $this->regularUser->uuid, [
+                'name' => 'Test Name'
+            ])
+            ->assertJsonStructure($this->showUserResource)
+            ->assertStatus(200);
+            
+            expect($response->json())->not->toHaveKey('id');
         });
     });
     describe("/user destroy", function(){

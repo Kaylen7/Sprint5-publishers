@@ -19,7 +19,7 @@ return new class extends Migration
             $table->json('languages');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('type', ['proofreading', 'translating']);
-            $table->boolean('available');
+            $table->boolean('available')->default(true);
             $table->timestamps();
         });
     }

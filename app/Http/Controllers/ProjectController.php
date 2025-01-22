@@ -89,11 +89,6 @@ class ProjectController extends Controller
         $target = Project::where('uuid', $uuid)->first();
 
         $this->authorize('delete', $target);
-        if(!$target){
-            return response([
-                'error' => 'Project does not exist.'
-            ], 404);
-        }
 
         $target->delete();
         return response([

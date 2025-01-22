@@ -65,6 +65,15 @@ abstract class TestCase extends BaseTestCase
         'updated_at'
     ];
 
+    protected $serviceResource = [
+        'uuid',
+        'name',
+        'description',
+        'type',
+        'languages',
+        'available'
+    ];
+
     protected function setUp(): void
     {
         parent::setUp();

@@ -48,7 +48,7 @@ class Service extends Model
         static::saving(function($model){
             if (!$model->name){
                 $user = User::findOrFail($model->user_id);
-                $model->name = $user->name;
+                $model->name = "Service of " . $user->name;
             }
             if (!$model->description){
                 $user = User::findOrFail($model->user_id);

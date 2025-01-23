@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Closure;
+use App\Helpers\ServiceValidationHelper;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class ValidServiceLanguage implements ValidationRule

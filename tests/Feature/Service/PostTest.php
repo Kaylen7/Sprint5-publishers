@@ -66,4 +66,22 @@ describe('POST /services', function(){
         ])
         ->assertStatus(422);
     });
+
+    test("proofreading language validation throws error 422", function(){
+        $response = $this->actingAs($this->regularUser)
+        ->postJson('api/services', [
+            'type' => "proofreading",
+            'languages' => ["This is Wrong", 0, ["nested array" => "this is wrong"]]
+        ])
+        ->assertStatus(422);
+    });
+
+    test("translating language validation throws error 422", function(){
+        $response = $this->actingAs($this->regularUser)
+        ->postJson('api/services', [
+            'type' => "translating",
+            'languages' => ["This is Wrong", 0, ["nested array" => "this is wrong"]]
+        ])
+        ->assertStatus(422);
+    });
 });

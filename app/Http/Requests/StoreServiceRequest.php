@@ -32,11 +32,11 @@ class StoreServiceRequest extends FormRequest
             'type' => [
                 'required',
                 'in:proofreading,translating',
-                new UniqueServiceType(auth()->user(), $this->input["user_id"] ?? 0)
+                new UniqueServiceType(auth()->user(), $this->get('user_id', 0))
             ],
             'languages' => [
                 'required',
-                new ValidServiceLanguage($this->input["type"] ?? '')
+                new ValidServiceLanguage($this->get('type', ''))
             ],
             'user_id' => [
                 'nullable',

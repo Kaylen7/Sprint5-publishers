@@ -35,13 +35,15 @@ abstract class TestCase extends BaseTestCase
     protected $regularUserResource = [
         'uuid',
         'email',
-        'project_count'
+        'project_count',
+        'services'
     ];
 
     protected $adminUserResource = [
         'uuid',
         'email',
         'project_count',
+        'services',
         'name',
         'created_at',
         'updated_at'

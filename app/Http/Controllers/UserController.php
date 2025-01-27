@@ -23,7 +23,7 @@ class UserController extends Controller
     public function show(Request $request, string $uuid)
     {
 
-        $target = User::with('hasProjects')->where('uuid', $uuid)->firstOrFail();
+        $target = User::with('hasProjects', 'hasServices')->where('uuid', $uuid)->firstOrFail();
         
         $this->authorize('view', $target);
 

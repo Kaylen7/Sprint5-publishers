@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectResource;
+use App\Http\Resources\ServiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShowUserResource extends JsonResource
@@ -19,7 +20,8 @@ class ShowUserResource extends JsonResource
             'uuid' => $this->uuid,
             'name' => $this->name,
             'email' => $this->email,
-            'projects' => ProjectResource::collection($this->hasProjects)
+            'projects' => ProjectResource::collection($this->hasProjects),
+            'services' => ServiceResource::collection($this->hasServices)
         ];
     }
 }

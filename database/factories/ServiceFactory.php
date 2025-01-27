@@ -23,8 +23,7 @@ class ServiceFactory extends Factory
         return [
             'type' => fake()->randomElement(['proofreading', 'translating']),
             'languages' => $this->generateLanguages('proofreading'),
-            'user_id' => User::inRandomOrder()->value('id'),
-            'available' => fake()->boolean()
+            'user_id' => User::inRandomOrder()->value('id')
         ];
     }
 

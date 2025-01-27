@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +18,11 @@ class UserResource extends JsonResource
         $data = [
             'uuid' => $this->uuid,
             'email' => $this->email,
-            'project_count' => $this->getProjectCount()
+            'project_count' => $this->getProjectCount(),
+            'services' => $this->hasServices()
+            ->get()
+            ->filter(fn($e) => $e['available'])
+            ->pluck('languages', 'type')
         ];
 
         if($request->user()->hasRole('admin')){

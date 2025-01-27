@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Service;
 use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Cache;
@@ -73,5 +74,9 @@ class User extends Authenticatable
 
     public function hasProjects(){
         return $this->hasMany(Project::class, 'owner_id');
+    }
+
+    public function hasServices(){
+        return $this->hasMany(Service::class, 'user_id');
     }
 }

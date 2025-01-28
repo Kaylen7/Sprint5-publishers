@@ -29,7 +29,8 @@ abstract class TestCase extends BaseTestCase
         'uuid',
         'name',
         'email',
-        'projects'
+        'projects',
+        'services'
     ];
 
     protected $regularUserResource = [

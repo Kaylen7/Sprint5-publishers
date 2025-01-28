@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\TokenRepository;
+use App\Http\Resources\ShowUserResource;
 use App\Http\Requests\AuthenticationRequest;
 use League\OAuth2\Server\AuthorizationServer;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
@@ -43,7 +44,7 @@ class AuthenticationController extends Controller
     }
 
     public function register(AuthenticationRequest $request){
-        
+
         DB::beginTransaction();
         
         try {
@@ -59,7 +60,7 @@ class AuthenticationController extends Controller
 
             return response()->json([
                 'token' => $token,
-                'user' => $user
+                'user' => new ShowUserResource($user)
             ]);
 
         } catch (\Exception $e){

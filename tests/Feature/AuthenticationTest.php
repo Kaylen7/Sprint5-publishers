@@ -36,8 +36,9 @@ describe('Authentication', function(){
         $response->assertStatus(200)
         ->assertJsonStructure([
             'token' => $this->tokenStructure,
-            'user' => $this->userStructure
+            'user' => $this->showUserResource
         ]);
+        expect($response->json()['user'])->not->toHaveKey('id');
     });
 
     test('/login works', function(){

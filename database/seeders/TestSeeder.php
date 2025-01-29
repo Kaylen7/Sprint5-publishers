@@ -20,11 +20,6 @@ class TestSeeder extends Seeder
             'password' => Hash::make(env('PASSWORD'))
         ]);
 
-        $admin = User::factory()->create([
-            'email' => env('ADMIN_EMAIL'),
-            'password' => Hash::make(env('ADMIN_PASSWORD'))
-        ])->assignRole('admin');
-
         $client = Client::factory()->create([
             'id' => env('PASSWORD_CLIENT_ID'),
             'secret' => env('PASSWORD_CLIENT_SECRET'),

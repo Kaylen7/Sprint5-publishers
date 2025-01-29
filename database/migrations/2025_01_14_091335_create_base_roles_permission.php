@@ -26,5 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Role::findByName('admin')?->delete();
+        Role::findByName('user')?->delete();
+        Role::findByName('service')?->delete();
     }
 };

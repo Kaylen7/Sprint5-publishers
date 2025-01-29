@@ -7,8 +7,8 @@ describe('User Model methods', function(){
     test('hasProjects() returns owned projects', function(){
         $userOne = User::factory()->create();
         $userTwo = User::factory()->create();
-        expect($userOne->id)->toBe(1);
-        expect($userTwo->id)->toBe(2);        
+        expect($userOne->id)->toBe(2);
+        expect($userTwo->id)->toBe(3);        
         expect($userOne->hasProjects()->count())->toBe(0);
 
         $project = Project::factory()->create([

@@ -12,11 +12,12 @@ describe('User Service Management', function(){
         $service = Service::factory()->proofreading()->create([
             'user_id' => $this->user->id
         ]);
+
         $response = $this->actingAs($this->user)
         ->getJson('api/users')
         ->assertStatus(200);
-
-        $data = $response->json()[0];
+        
+        $data = $response->json()[1];
         expect($data)->toHaveKey('services');
         expect($data["services"])->toHaveKey('proofreading');
     });

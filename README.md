@@ -1,7 +1,7 @@
-# Open Publisher
+# 📚 Open Publisher
 💡 Open publishing process based in crowdfunding.  
 
-## Context
+## 🖼️ Context
 Given a simplified publishing process:  
 Original -> proofreading -> [opt] translating -> layout design -> printing -> distributing  
 
@@ -9,7 +9,7 @@ This project aims to make a platform that offers:
 - a marketplace to find services  
 - a pipeline for authors to manage the process.  
 
-# How to install  
+## ⚙️ How to install  
 
 1. Clone repository  
 ```sh
@@ -46,12 +46,13 @@ php artisan passport:client --password
 ```
 Leave default name, press enter and make sure you copy client id and client secret to `.env` fields: `PASSWORD_CLIENT_ID` and `PASSWORD_CLIENT_SECRET`.   
 
-Now the project is all set, you should be able to serve it with `php artisan serve` and check documentation `api/documentation`.   
+Now the project is all set, you should be able to serve it with `php artisan serve` and check documentation `api/documentation`. 
+You can also find [API documentation](https://www.postman.com/kaylen/workspace/publishers/collection/14402771-9d5ab551-68f4-4941-b1a0-a2871db01242?action=share&creator=14402771&active-environment=14402771-20fb1a1d-f64e-4012-a6f6-5517350e5838) in Postman.
 
 >[!WARNING]
 > `api/documentation` works with project database. There's an ongoing branch to change this so that it uses `:memory:` database instead.   
 
-# Tests
+## 🧪 Tests
 This project has been developed with TDD, so there's a test suite in `tests/`. It uses:  
 - `.env.testing` configuration  
 - `:memory:` database  
@@ -62,13 +63,13 @@ It's encouraged that you run it with `--parallel` flag for time optimization (1.
 php artisan test --parallel
 ```
 
-# v1
+## 👾 v1
 Early version of base project. Features CRUDS for user, project and services, with oauth authentication and regular/admin authorization.   
 
 - Admin is created through migration rules. All users created from `/register` endpoint are regular users.  
 - User can only have a service for each type. Right now there's only `proofreading` and `translating` types.  
 
-### Endpoints and permissions
+### 🤝 Endpoints and permissions
 | **endpoint**                                      | **admin** | **user** | **description**                                  |
 | ------------------------------------------------- | --------- | -------- | ------------------------------------------------ |
 | `POST api/register`                               | [x]       | [x]      | register user                                    |

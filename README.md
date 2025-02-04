@@ -22,12 +22,17 @@ cd publishers
 composer install
 ```
 
-3. Generate laravel encryption key  
+3. Copy `.env.example` to `.env`. Update `APP_URL` if necessary.  
+```sh
+cp .env.example .env
+```
+
+4. Generate laravel encryption key  
 ```sh
 php artisan key:generate
 ```
 
-4. Run migrations and seeder (encouraged for testing purposes)  
+5. Run migrations and seeder (encouraged for testing purposes)  
 ```sh
 php artisan migrate --seed
 ```
@@ -35,16 +40,16 @@ The seeder will create some projects and services, as well as a test user with c
 **email**: test@example.com  
 **password**: password  
 
-5. Copy `.env.example` to `.env`. Update `APP_URL` if necessary.  
-```sh
-cp .env.example .env
-```
-
 6. Create passport client.  
 ```sh
 php artisan passport:client --password
 ```
-Leave default name, press enter and make sure you copy client id and client secret to `.env` fields: `PASSWORD_CLIENT_ID` and `PASSWORD_CLIENT_SECRET`.   
+Leave default name, press enter and make sure you copy client id and client secret to `.env` fields: `PASSWORD_CLIENT_ID` and `PASSWORD_CLIENT_SECRET`.  
+
+7. Create passport keys.  
+```sh
+php artisan passport:keys
+```
 
 Now the project is all set, you should be able to serve it with `php artisan serve` and check documentation `api/documentation`. 
 You can also find [API documentation](https://www.postman.com/kaylen/workspace/publishers/collection/14402771-9d5ab551-68f4-4941-b1a0-a2871db01242?action=share&creator=14402771&active-environment=14402771-20fb1a1d-f64e-4012-a6f6-5517350e5838) in Postman.
